@@ -1,0 +1,216 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.8.0 #10562 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8l052_GPIO
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _STM8L052_GPIO_SetupPin
+                                     12 	.globl _STM8L052_GPIO_High
+                                     13 	.globl _STM8L052_GPIO_Low
+                                     14 	.globl _STM8L052_GPIO_Toggle
+                                     15 ;--------------------------------------------------------
+                                     16 ; ram data
+                                     17 ;--------------------------------------------------------
+                                     18 	.area DATA
+                                     19 ;--------------------------------------------------------
+                                     20 ; ram data
+                                     21 ;--------------------------------------------------------
+                                     22 	.area INITIALIZED
+                                     23 ;--------------------------------------------------------
+                                     24 ; absolute external ram data
+                                     25 ;--------------------------------------------------------
+                                     26 	.area DABS (ABS)
+                                     27 
+                                     28 ; default segment ordering for linker
+                                     29 	.area HOME
+                                     30 	.area GSINIT
+                                     31 	.area GSFINAL
+                                     32 	.area CONST
+                                     33 	.area INITIALIZER
+                                     34 	.area CODE
+                                     35 
+                                     36 ;--------------------------------------------------------
+                                     37 ; global & static initialisations
+                                     38 ;--------------------------------------------------------
+                                     39 	.area HOME
+                                     40 	.area GSINIT
+                                     41 	.area GSFINAL
+                                     42 	.area GSINIT
+                                     43 ;--------------------------------------------------------
+                                     44 ; Home
+                                     45 ;--------------------------------------------------------
+                                     46 	.area HOME
+                                     47 	.area HOME
+                                     48 ;--------------------------------------------------------
+                                     49 ; code
+                                     50 ;--------------------------------------------------------
+                                     51 	.area CODE
+                                     52 ;	lib/src/stm8l052_GPIO.c: 3: void STM8L052_GPIO_SetupPin(GPIO_TypeDef* port, STM8L052_GPIO_PINNUM pin, STM8L052_GPIO_PINMODE pinMode) {
+                                     53 ;	-----------------------------------------
+                                     54 ;	 function STM8L052_GPIO_SetupPin
+                                     55 ;	-----------------------------------------
+      000000                         56 _STM8L052_GPIO_SetupPin:
+      000000 52 06            [ 2]   57 	sub	sp, #6
+                                     58 ;	lib/src/stm8l052_GPIO.c: 4: port->DDR = (port->DDR&(1<<pin))|((pinMode&0x1)<<pin);
+      000002 16 09            [ 2]   59 	ldw	y, (0x09, sp)
+      000004 17 02            [ 2]   60 	ldw	(0x02, sp), y
+      000006 72 A9 00 02      [ 2]   61 	addw	y, #0x0002
+      00000A 90 F6            [ 1]   62 	ld	a, (y)
+      00000C 95               [ 1]   63 	ld	xh, a
+      00000D 7B 0B            [ 1]   64 	ld	a, (0x0b, sp)
+      00000F 97               [ 1]   65 	ld	xl, a
+      000010 A6 01            [ 1]   66 	ld	a, #0x01
+      000012 6B 05            [ 1]   67 	ld	(0x05, sp), a
+      000014 9F               [ 1]   68 	ld	a, xl
+      000015 4D               [ 1]   69 	tnz	a
+      000016 27 05            [ 1]   70 	jreq	00104$
+      000018                         71 00103$:
+      000018 08 05            [ 1]   72 	sll	(0x05, sp)
+      00001A 4A               [ 1]   73 	dec	a
+      00001B 26 FB            [ 1]   74 	jrne	00103$
+      00001D                         75 00104$:
+      00001D 9E               [ 1]   76 	ld	a, xh
+      00001E 14 05            [ 1]   77 	and	a, (0x05, sp)
+      000020 6B 01            [ 1]   78 	ld	(0x01, sp), a
+      000022 7B 0C            [ 1]   79 	ld	a, (0x0c, sp)
+      000024 A4 01            [ 1]   80 	and	a, #0x01
+      000026 88               [ 1]   81 	push	a
+      000027 9F               [ 1]   82 	ld	a, xl
+      000028 4D               [ 1]   83 	tnz	a
+      000029 27 05            [ 1]   84 	jreq	00106$
+      00002B                         85 00105$:
+      00002B 08 01            [ 1]   86 	sll	(1, sp)
+      00002D 4A               [ 1]   87 	dec	a
+      00002E 26 FB            [ 1]   88 	jrne	00105$
+      000030                         89 00106$:
+      000030 84               [ 1]   90 	pop	a
+      000031 1A 01            [ 1]   91 	or	a, (0x01, sp)
+      000033 90 F7            [ 1]   92 	ld	(y), a
+                                     93 ;	lib/src/stm8l052_GPIO.c: 5: port->CR1 = (port->DDR&(1<<pin))|((pinMode&0x2>>1)<<pin);
+      000035 1E 02            [ 2]   94 	ldw	x, (0x02, sp)
+      000037 1C 00 03         [ 2]   95 	addw	x, #0x0003
+      00003A 90 F6            [ 1]   96 	ld	a, (y)
+      00003C 14 05            [ 1]   97 	and	a, (0x05, sp)
+      00003E 6B 04            [ 1]   98 	ld	(0x04, sp), a
+      000040 7B 0C            [ 1]   99 	ld	a, (0x0c, sp)
+      000042 A4 01            [ 1]  100 	and	a, #0x01
+      000044 88               [ 1]  101 	push	a
+      000045 7B 0C            [ 1]  102 	ld	a, (0x0c, sp)
+      000047 27 05            [ 1]  103 	jreq	00108$
+      000049                        104 00107$:
+      000049 08 01            [ 1]  105 	sll	(1, sp)
+      00004B 4A               [ 1]  106 	dec	a
+      00004C 26 FB            [ 1]  107 	jrne	00107$
+      00004E                        108 00108$:
+      00004E 84               [ 1]  109 	pop	a
+      00004F 6B 06            [ 1]  110 	ld	(0x06, sp), a
+      000051 7B 04            [ 1]  111 	ld	a, (0x04, sp)
+      000053 1A 06            [ 1]  112 	or	a, (0x06, sp)
+      000055 F7               [ 1]  113 	ld	(x), a
+                                    114 ;	lib/src/stm8l052_GPIO.c: 6: port->CR2 = (port->DDR&(1<<pin))|((pinMode&0x4>>2)<<pin);
+      000056 1E 02            [ 2]  115 	ldw	x, (0x02, sp)
+      000058 1C 00 04         [ 2]  116 	addw	x, #0x0004
+      00005B 90 F6            [ 1]  117 	ld	a, (y)
+      00005D 14 05            [ 1]  118 	and	a, (0x05, sp)
+      00005F 1A 06            [ 1]  119 	or	a, (0x06, sp)
+      000061 F7               [ 1]  120 	ld	(x), a
+                                    121 ;	lib/src/stm8l052_GPIO.c: 7: }
+      000062 5B 06            [ 2]  122 	addw	sp, #6
+      000064 81               [ 4]  123 	ret
+                                    124 ;	lib/src/stm8l052_GPIO.c: 9: void STM8L052_GPIO_High(GPIO_TypeDef* port, STM8L052_GPIO_PINNUM pin) {
+                                    125 ;	-----------------------------------------
+                                    126 ;	 function STM8L052_GPIO_High
+                                    127 ;	-----------------------------------------
+      000065                        128 _STM8L052_GPIO_High:
+      000065 88               [ 1]  129 	push	a
+                                    130 ;	lib/src/stm8l052_GPIO.c: 10: port->IDR |= 1<<pin;
+      000066 1E 04            [ 2]  131 	ldw	x, (0x04, sp)
+      000068 5C               [ 1]  132 	incw	x
+      000069 F6               [ 1]  133 	ld	a, (x)
+      00006A 90 97            [ 1]  134 	ld	yl, a
+      00006C 7B 06            [ 1]  135 	ld	a, (0x06, sp)
+      00006E 88               [ 1]  136 	push	a
+      00006F A6 01            [ 1]  137 	ld	a, #0x01
+      000071 6B 02            [ 1]  138 	ld	(0x02, sp), a
+      000073 84               [ 1]  139 	pop	a
+      000074 4D               [ 1]  140 	tnz	a
+      000075 27 05            [ 1]  141 	jreq	00104$
+      000077                        142 00103$:
+      000077 08 01            [ 1]  143 	sll	(0x01, sp)
+      000079 4A               [ 1]  144 	dec	a
+      00007A 26 FB            [ 1]  145 	jrne	00103$
+      00007C                        146 00104$:
+      00007C 90 9F            [ 1]  147 	ld	a, yl
+      00007E 1A 01            [ 1]  148 	or	a, (0x01, sp)
+      000080 F7               [ 1]  149 	ld	(x), a
+                                    150 ;	lib/src/stm8l052_GPIO.c: 11: }
+      000081 84               [ 1]  151 	pop	a
+      000082 81               [ 4]  152 	ret
+                                    153 ;	lib/src/stm8l052_GPIO.c: 13: void STM8L052_GPIO_Low(GPIO_TypeDef* port, STM8L052_GPIO_PINNUM pin) {
+                                    154 ;	-----------------------------------------
+                                    155 ;	 function STM8L052_GPIO_Low
+                                    156 ;	-----------------------------------------
+      000083                        157 _STM8L052_GPIO_Low:
+      000083 88               [ 1]  158 	push	a
+                                    159 ;	lib/src/stm8l052_GPIO.c: 14: port->ODR &= !(1<<pin);
+      000084 16 04            [ 2]  160 	ldw	y, (0x04, sp)
+      000086 90 F6            [ 1]  161 	ld	a, (y)
+      000088 6B 01            [ 1]  162 	ld	(0x01, sp), a
+      00008A 7B 06            [ 1]  163 	ld	a, (0x06, sp)
+      00008C 5F               [ 1]  164 	clrw	x
+      00008D 5C               [ 1]  165 	incw	x
+      00008E 4D               [ 1]  166 	tnz	a
+      00008F 27 04            [ 1]  167 	jreq	00104$
+      000091                        168 00103$:
+      000091 58               [ 2]  169 	sllw	x
+      000092 4A               [ 1]  170 	dec	a
+      000093 26 FC            [ 1]  171 	jrne	00103$
+      000095                        172 00104$:
+      000095 1D 00 01         [ 2]  173 	subw	x, #1
+      000098 4F               [ 1]  174 	clr	a
+      000099 49               [ 1]  175 	rlc	a
+      00009A 97               [ 1]  176 	ld	xl, a
+      00009B 7B 01            [ 1]  177 	ld	a, (0x01, sp)
+      00009D 89               [ 2]  178 	pushw	x
+      00009E 14 02            [ 1]  179 	and	a, (2, sp)
+      0000A0 85               [ 2]  180 	popw	x
+      0000A1 90 F7            [ 1]  181 	ld	(y), a
+                                    182 ;	lib/src/stm8l052_GPIO.c: 15: }
+      0000A3 84               [ 1]  183 	pop	a
+      0000A4 81               [ 4]  184 	ret
+                                    185 ;	lib/src/stm8l052_GPIO.c: 17: void STM8L052_GPIO_Toggle(GPIO_TypeDef* port, STM8L052_GPIO_PINNUM pin) {
+                                    186 ;	-----------------------------------------
+                                    187 ;	 function STM8L052_GPIO_Toggle
+                                    188 ;	-----------------------------------------
+      0000A5                        189 _STM8L052_GPIO_Toggle:
+      0000A5 88               [ 1]  190 	push	a
+                                    191 ;	lib/src/stm8l052_GPIO.c: 18: port->ODR ^= 1<<pin;
+      0000A6 1E 04            [ 2]  192 	ldw	x, (0x04, sp)
+      0000A8 F6               [ 1]  193 	ld	a, (x)
+      0000A9 90 97            [ 1]  194 	ld	yl, a
+      0000AB 7B 06            [ 1]  195 	ld	a, (0x06, sp)
+      0000AD 88               [ 1]  196 	push	a
+      0000AE A6 01            [ 1]  197 	ld	a, #0x01
+      0000B0 6B 02            [ 1]  198 	ld	(0x02, sp), a
+      0000B2 84               [ 1]  199 	pop	a
+      0000B3 4D               [ 1]  200 	tnz	a
+      0000B4 27 05            [ 1]  201 	jreq	00104$
+      0000B6                        202 00103$:
+      0000B6 08 01            [ 1]  203 	sll	(0x01, sp)
+      0000B8 4A               [ 1]  204 	dec	a
+      0000B9 26 FB            [ 1]  205 	jrne	00103$
+      0000BB                        206 00104$:
+      0000BB 90 9F            [ 1]  207 	ld	a, yl
+      0000BD 18 01            [ 1]  208 	xor	a, (0x01, sp)
+      0000BF F7               [ 1]  209 	ld	(x), a
+                                    210 ;	lib/src/stm8l052_GPIO.c: 19: }
+      0000C0 84               [ 1]  211 	pop	a
+      0000C1 81               [ 4]  212 	ret
+                                    213 	.area CODE
+                                    214 	.area CONST
+                                    215 	.area INITIALIZER
+                                    216 	.area CABS (ABS)

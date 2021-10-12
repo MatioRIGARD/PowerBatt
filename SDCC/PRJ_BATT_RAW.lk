@@ -1,0 +1,16 @@
+-muwx
+-i SDCC/PRJ_BATT_RAW.hex
+-Y
+-b HOME = 0x8000
+-b DATA = 0x0001
+-b SSEG = 0xffffffff
+-k /usr/bin/../share/sdcc/lib/stm8
+-k /usr/share/sdcc/lib/stm8
+-l stm8
+-l stm8
+SDCC/stm8l052_CLK.rel
+SDCC/stm8l052_SPI.rel
+SDCC/stm8l052_GPIO.rel
+SDCC/main.rel
+
+-e
